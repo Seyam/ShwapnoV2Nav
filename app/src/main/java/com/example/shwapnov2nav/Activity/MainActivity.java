@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.shwapnov2nav.Fragments.DeviceControlFragment;
 import com.example.shwapnov2nav.Fragments.PowerFragment;
 import com.example.shwapnov2nav.Fragments.TemperatureFragment;
 import com.example.shwapnov2nav.R;
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_graph) {
 
         } else if (id == R.id.nav_control_panel) {
+            fragment = new DeviceControlFragment();
 
         } else if (id == R.id.nav_share) {
 
