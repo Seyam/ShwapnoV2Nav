@@ -75,7 +75,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
 
                         @Override
                         public void onNext(UserResponse userResponse) {
-                            Toast.makeText(context, "Response: "+userResponse.getResponse(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Response : "+userResponse.getResponse(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
