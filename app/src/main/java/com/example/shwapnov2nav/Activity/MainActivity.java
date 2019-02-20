@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.shwapnov2nav.Fragments.DeviceControlFragment;
+import com.example.shwapnov2nav.Fragments.GraphFragment;
 import com.example.shwapnov2nav.Fragments.PowerFragment;
 import com.example.shwapnov2nav.Fragments.TemperatureFragment;
 import com.example.shwapnov2nav.R;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new PowerFragment();
 
         } else if (id == R.id.nav_graph) {
+            fragment = new GraphFragment();
 
         } else if (id == R.id.nav_control_panel) {
             fragment = new DeviceControlFragment();
