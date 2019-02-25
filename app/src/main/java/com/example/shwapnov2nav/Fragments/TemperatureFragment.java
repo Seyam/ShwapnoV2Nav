@@ -60,7 +60,7 @@ public class TemperatureFragment extends Fragment {
 
 
     private void makeNetworkRequestForTemp(final View rootView) {
-        Log.e("Tag","called API");
+        Log.e("Temp","called API");
         Observable<List<TempSensorData>> myObservable= apiService.getTempData()
                 .subscribeOn(Schedulers.io())//we told RxJava to do all the work on the background(io) thread
                 .observeOn(AndroidSchedulers.mainThread());//When the work is done and our data is ready, observeOn() ensures that onNext() or onSuccess() or onError() or accept() are called on the main thread.

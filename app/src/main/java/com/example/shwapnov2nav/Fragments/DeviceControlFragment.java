@@ -54,7 +54,7 @@ public class DeviceControlFragment extends Fragment {
     }
 
     private void makeNetworkRequestForDeviceList(final View rootView) {
-        Log.e("Tag","called API");
+        Log.e("Control"," called API");
         Observable<List<DeviceControl>> myObservable= apiService.getDeviceInfo()
                 .subscribeOn(Schedulers.io())//we told RxJava to do all the work on the background(io) thread
                 .observeOn(AndroidSchedulers.mainThread());//When the work is done and our data is ready, observeOn() ensures that onNext() or onSuccess() or onError() or accept() are called on the main thread.

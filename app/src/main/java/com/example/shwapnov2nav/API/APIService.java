@@ -3,6 +3,7 @@ package com.example.shwapnov2nav.API;
 
 import com.example.shwapnov2nav.Database.DeviceControl;
 import com.example.shwapnov2nav.Database.TempSensorData;
+import com.example.shwapnov2nav.Model.TempGraphDataSet;
 import com.example.shwapnov2nav.Model.UserResponse;
 
 import java.util.List;
@@ -16,11 +17,14 @@ import retrofit2.http.POST;
 
 public interface APIService {
 
-    @GET("temp")
+    @POST("temp")
     Observable<List<TempSensorData>> getTempData();
 
     @POST("devlist")
     Observable<List<DeviceControl>> getDeviceInfo();
+
+    @POST("tempdataset")
+    Observable<List<TempGraphDataSet>> getTempDataSet();
 
     @FormUrlEncoded
     @POST("control")

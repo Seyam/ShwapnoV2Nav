@@ -1,6 +1,11 @@
 package com.example.shwapnov2nav.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shwapnov2nav.Activity.MainActivity;
 import com.example.shwapnov2nav.Database.TempSensorData;
+import com.example.shwapnov2nav.Fragments.GraphFragment;
 import com.example.shwapnov2nav.R;
 
 import java.util.List;
@@ -20,6 +27,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
     private List<com.example.shwapnov2nav.Database.TempSensorData> dataList;
     private Context context;
+    Fragment fragment = null;
 
     public EmployeeAdapter(List<TempSensorData> dataList, Context context) {
         this.dataList = dataList;
@@ -44,8 +52,19 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             public void onClick(View v) {
                 Toast.makeText(context, "You clicked: "+dataList.get(position).getLocation(), Toast.LENGTH_SHORT).show();
                 Log.e("Tag: ", "Clicked");
+                fragment = new GraphFragment();
+
+                if (fragment != null){
+                    FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.screen_area, fragment);
+                    fragmentTransaction.commit();
+                }
+
 
             }
+
+
         });
 
 //        if(dataList.get(position).getTempValue() > 20.0){
