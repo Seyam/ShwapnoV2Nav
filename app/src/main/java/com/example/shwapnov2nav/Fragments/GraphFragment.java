@@ -51,7 +51,12 @@ public class GraphFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        makeNetworkRequestForTemp();
+
+        String location = getArguments().getString("location");
+
+        Log.e("loc", location);
+
+        makeNetworkRequestForTemp(location);
         lineChart =(LineChart) view.findViewById(R.id.lineChart);
         lineChart.setDragEnabled(false);
         lineChart.setScaleEnabled(false);
@@ -61,9 +66,9 @@ public class GraphFragment extends Fragment {
 
 
 
-    private void makeNetworkRequestForTemp() {
+    private void makeNetworkRequestForTemp(String location) {
         Log.e("Graph","called API");
-        Observable<List<TempGraphDataSet>> myObservable = apiService.getTempDataSet()
+        Observable<List<TempGraphDataSet>> myObservable = apiService.getTempDataSet(location)
                                                                     .subscribeOn(Schedulers.io())
                                                                     .observeOn(AndroidSchedulers.mainThread());
         myObservable.subscribe(new Observer<List<TempGraphDataSet>>() {
@@ -77,9 +82,9 @@ public class GraphFragment extends Fragment {
                 Log.e("onNext"," got data");
                 makeArrayListDataSet(tempGraphDataSets);
 
-                for(int i=0; i<tempGraphDataSets.size(); i++){
-                    Log.e("i-"+i, tempGraphDataSets.get(i).getTempValue().toString());
-                }
+//                for(int i=0; i<tempGraphDataSets.size(); i++){
+//                    Log.e("i-"+i, tempGraphDataSets.get(i).getTempValue().toString());
+//                }
 
 
             }
@@ -140,7 +145,6 @@ public class GraphFragment extends Fragment {
         lineDataSet.setFillAlpha(110);
         lineDataSet.setColor(Color.RED);
 
-//        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
         ArrayList<ILineDataSet> iLineDataSets = new ArrayList<>();
         iLineDataSets.add(lineDataSet);
@@ -149,6 +153,8 @@ public class GraphFragment extends Fragment {
         lineChart.setData(lineData);
         lineChart.invalidate(); //to refresh the chart with new data
     }
+
+
 
 
 

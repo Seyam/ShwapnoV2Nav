@@ -2,6 +2,8 @@ package com.example.shwapnov2nav.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -51,14 +53,23 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "You clicked: "+dataList.get(position).getLocation(), Toast.LENGTH_SHORT).show();
-                Log.e("Tag: ", "Clicked");
+
+                Bundle b = new Bundle();
+                b.putString("location"  , dataList.get(position).getLocation());
+
                 fragment = new GraphFragment();
+                fragment.setArguments(b);
 
                 if (fragment != null){
                     FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.screen_area, fragment);
+                    fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
+
+                    int count = ((AppCompatActivity) context).getSupportFragmentManager().getBackStackEntryCount();
+
+                    Log.e("Count",""+count);
                 }
 
 

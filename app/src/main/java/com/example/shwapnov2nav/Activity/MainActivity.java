@@ -10,17 +10,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.shwapnov2nav.Fragments.DeviceControlFragment;
-import com.example.shwapnov2nav.Fragments.GraphFragment;
 import com.example.shwapnov2nav.Fragments.PowerFragment;
 import com.example.shwapnov2nav.Fragments.TemperatureFragment;
 import com.example.shwapnov2nav.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +46,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        Log.e("Count",""+count);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if (count == 0) {
             super.onBackPressed();
+            //additional code
+        }
+        else {
+            getSupportFragmentManager().popBackStack();
+            count = 0;
         }
     }
 
@@ -73,6 +85,9 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -87,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new PowerFragment();
 
         } else if (id == R.id.nav_graph) {
-            fragment = new GraphFragment();
+
 
         } else if (id == R.id.nav_control_panel) {
             fragment = new DeviceControlFragment();
@@ -104,6 +119,7 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             fragmentTransaction.replace(R.id.screen_area, fragment);
+//            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
 
