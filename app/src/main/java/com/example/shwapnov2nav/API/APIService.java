@@ -3,6 +3,7 @@ package com.example.shwapnov2nav.API;
 
 import com.example.shwapnov2nav.Database.DeviceControl;
 import com.example.shwapnov2nav.Database.TempSensorData;
+import com.example.shwapnov2nav.Model.PowerResponse;
 import com.example.shwapnov2nav.Model.TempGraphDataSet;
 import com.example.shwapnov2nav.Model.UserResponse;
 
@@ -21,11 +22,17 @@ public interface APIService {
     @POST("temp")
     Observable<List<TempSensorData>> getTempData();
 
+    @POST("tempdataset")
+    Observable<List<TempGraphDataSet>> getTempDataSet(@Query("location") String location);
+
     @POST("devlist")
     Observable<List<DeviceControl>> getDeviceInfo();
 
-    @POST("tempdataset")
-    Observable<List<TempGraphDataSet>> getTempDataSet(@Query("location") String location);
+    @FormUrlEncoded
+    @POST("power")
+    Observable<PowerResponse> getPower(
+            @Field("oid") String oid
+    );
 
     @FormUrlEncoded
     @POST("control")

@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!-- START*** Root Container *** -->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="3dp"
+    card_view:cardUseCompatPadding="true"
+    >
 
-
-    <Button
-        android:id="@+id/myPowerButton"
-        android:layout_width="wrap_content"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout_field"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Power Button" />
-</LinearLayout>
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+
+        <!-- TextView Employee Name -->
+        <TextView
+            android:id="@+id/txt_power_field"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+    <!-- END*** Root Container *** -->
