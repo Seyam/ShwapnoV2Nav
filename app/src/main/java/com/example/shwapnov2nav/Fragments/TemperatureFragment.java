@@ -16,6 +16,7 @@ import com.example.shwapnov2nav.API.APIService;
 import com.example.shwapnov2nav.API.RetrofitInstance;
 import com.example.shwapnov2nav.Activity.MainActivity;
 import com.example.shwapnov2nav.Adapter.EmployeeAdapter;
+import com.example.shwapnov2nav.Database.DataLogger;
 import com.example.shwapnov2nav.Database.TempSensorData;
 import com.example.shwapnov2nav.Database.TempSensorDataDatabase;
 import com.example.shwapnov2nav.R;
@@ -31,10 +32,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TemperatureFragment extends Fragment {
 
-    APIService apiService;
+    private APIService apiService;
     private EmployeeAdapter adapter;
     private RecyclerView recyclerView;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private DataLogger dataLogger;
+
 //    TempSensorDataDatabase dBService;
 
 
@@ -61,7 +64,10 @@ public class TemperatureFragment extends Fragment {
 
     private void makeNetworkRequestForTemp(final View rootView) {
         Log.e("Temp","called API");
-        Observable<List<TempSensorData>> myObservable= apiService.getTempData()
+
+        dataLogger = new DataLogger(getContext());
+
+        Observable<List<TempSensorData>> myObservable= apiService.getTempData(dataLogger.loadData("authHeader"))
                 .subscribeOn(Schedulers.io())//we told RxJava to do all the work on the background(io) thread
                 .observeOn(AndroidSchedulers.mainThread());//When the work is done and our data is ready, observeOn() ensures that onNext() or onSuccess() or onError() or accept() are called on the main thread.
         myObservable.subscribe(new Observer<List<TempSensorData>>() {
@@ -87,6 +93,7 @@ public class TemperatureFragment extends Fragment {
             @Override
             public void onError(Throwable e) {
                 Log.e("onError ","called for     TempSensorData");
+                Toast.makeText(getContext(),"Request Failed!", Toast.LENGTH_SHORT).show();
             }
 
             @Override

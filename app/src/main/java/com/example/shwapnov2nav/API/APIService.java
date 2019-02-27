@@ -12,31 +12,31 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 
 public interface APIService {
 
+    @POST("login")
+    Observable<UserResponse> sendPostAsBasicAuthentication(@Header("Authorization") String authHeader);
+
     @POST("temp")
-    Observable<List<TempSensorData>> getTempData();
+    Observable<List<TempSensorData>> getTempData(@Header("Authorization") String authHeader);
 
     @POST("tempdataset")
     Observable<List<TempGraphDataSet>> getTempDataSet(@Query("location") String location);
 
     @POST("devlist")
-    Observable<List<DeviceControl>> getDeviceInfo();
+    Observable<List<DeviceControl>> getDeviceList(@Header("Authorization") String authHeader);
 
-    @FormUrlEncoded
     @POST("power")
-    Observable<PowerResponse> getPower(
-            @Field("oid") String oid
-    );
+    Observable<PowerResponse> getPower(@Header("Authorization") String authHeader);
 
     @FormUrlEncoded
     @POST("control")
-    Observable<UserResponse> sendPostAsFormUrlEncoded(
+    Observable<UserResponse> sendControlCommand(
             @Field("did") String did,
             @Field("command") String command
     );

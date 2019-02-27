@@ -64,9 +64,10 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     Toast.makeText(context, "You switched "+dataList.get(position).getDevId()+" ON", Toast.LENGTH_SHORT).show();
-                    Observable<UserResponse> myObservable = apiService.sendPostAsFormUrlEncoded(dataList.get(position).getDevId(), "1")
+                    Observable<UserResponse> myObservable = apiService.sendControlCommand(dataList.get(position).getDevId(), "1")
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread());
+
                     myObservable.subscribe(new Observer<UserResponse>() {
                         @Override
                         public void onSubscribe(Disposable d) {
@@ -92,7 +93,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
                 }
                 else {
                     Toast.makeText(context, "You switched "+dataList.get(position).getDevId()+" OFF", Toast.LENGTH_SHORT).show();
-                    Observable<UserResponse> myObservable = apiService.sendPostAsFormUrlEncoded(dataList.get(position).getDevId(), "0")
+                    Observable<UserResponse> myObservable = apiService.sendControlCommand(dataList.get(position).getDevId(), "0")
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread());
                     myObservable.subscribe(new Observer<UserResponse>() {

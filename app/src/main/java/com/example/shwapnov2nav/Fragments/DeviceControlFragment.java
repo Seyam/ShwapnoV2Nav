@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.shwapnov2nav.API.APIService;
 import com.example.shwapnov2nav.API.RetrofitInstance;
 import com.example.shwapnov2nav.Adapter.DeviceListAdapter;
 import com.example.shwapnov2nav.Adapter.EmployeeAdapter;
+import com.example.shwapnov2nav.Database.DataLogger;
 import com.example.shwapnov2nav.Database.DeviceControl;
 import com.example.shwapnov2nav.Database.TempSensorData;
 import com.example.shwapnov2nav.R;
@@ -55,7 +57,8 @@ public class DeviceControlFragment extends Fragment {
 
     private void makeNetworkRequestForDeviceList(final View rootView) {
         Log.e("Control"," called API");
-        Observable<List<DeviceControl>> myObservable= apiService.getDeviceInfo()
+        DataLogger dataLogger = new DataLogger(getContext());
+        Observable<List<DeviceControl>> myObservable= apiService.getDeviceList(dataLogger.loadData("authHeader"))
                 .subscribeOn(Schedulers.io())//we told RxJava to do all the work on the background(io) thread
                 .observeOn(AndroidSchedulers.mainThread());//When the work is done and our data is ready, observeOn() ensures that onNext() or onSuccess() or onError() or accept() are called on the main thread.
         myObservable.subscribe(new Observer<List<DeviceControl>>() {
@@ -81,6 +84,7 @@ public class DeviceControlFragment extends Fragment {
             @Override
             public void onError(Throwable e) {
                 Log.e("onError ","called for     TempSensorData");
+                Toast.makeText(getContext(), "Request failed!", Toast.LENGTH_SHORT).show();
             }
 
             @Override

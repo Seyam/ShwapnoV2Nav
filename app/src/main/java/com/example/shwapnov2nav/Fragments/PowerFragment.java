@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.shwapnov2nav.API.APIService;
 import com.example.shwapnov2nav.API.RetrofitInstance;
+import com.example.shwapnov2nav.Database.DataLogger;
 import com.example.shwapnov2nav.Database.TempSensorData;
 import com.example.shwapnov2nav.Model.PowerResponse;
 import com.example.shwapnov2nav.R;
@@ -49,7 +50,9 @@ public class PowerFragment extends Fragment {
 
     private void makeNetworkRequest(final View view) {
         Log.e("Power","called API");
-        Observable<PowerResponse> myObservable= apiService.getPower("Gulshan 1")
+        DataLogger dataLogger = new DataLogger(getContext());
+//        Log.e("authHeader",dataLogger.loadData("authHeader"));
+        Observable<PowerResponse> myObservable= apiService.getPower(dataLogger.loadData("authHeader"))
                 .subscribeOn(Schedulers.io())//we told RxJava to do all the work on the background(io) thread
                 .observeOn(AndroidSchedulers.mainThread());//When the work is done and our data is ready, observeOn() ensures that onNext() or onSuccess() or onError() or accept() are called on the main thread.
 
@@ -71,7 +74,7 @@ public class PowerFragment extends Fragment {
 
             @Override
             public void onError(Throwable e) {
-                Log.e("onError ","called for     TempSensorData");
+                Log.e("onError ","called for     Power");
             }
 
             @Override
