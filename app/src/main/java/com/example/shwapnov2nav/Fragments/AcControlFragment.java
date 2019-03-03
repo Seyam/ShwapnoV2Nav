@@ -28,69 +28,60 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class DeviceControlFragment extends Fragment {
+public class AcControlFragment extends Fragment {
+
     APIService apiService;
     private DeviceListAdapter adapter;
     private RecyclerView recyclerView;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-
+    
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         /*init API. We must first create an instance of the ApiService using the Retrofit object we get as returned from RetrofitInstance class.*/
         apiService = RetrofitInstance.getRetrofitInstance().create(APIService.class);
-        View rootView = inflater.inflate(R.layout.fragment_device_list, null);
-        //Create only a single instance of DB
-//        dBService = TempSensorDataDatabase.getInstance(MainActivity.this);
+        View view = inflater.inflate(R.layout.fragment_device_list,null);
 
-
-        makeNetworkRequestForDeviceList(rootView);
-
-
-
-
-
-        return rootView;
+        makeNetworkRequestForACList(view);
+        
+        
+        return view;
+        
+        
     }
 
-    private void makeNetworkRequestForDeviceList(final View rootView) {
-        Log.e("Control"," called API");
+    private void makeNetworkRequestForACList(final View view) {
+        Log.e("AC"," called API");
         DataLogger dataLogger = new DataLogger(getContext());
-        Observable<List<DeviceListResponse>> myObservable= apiService.getLightList(dataLogger.loadData("authHeader"))
+        Observable<List<DeviceListResponse>> myObservable= apiService.getAcList(dataLogger.loadData("authHeader"))
                 .subscribeOn(Schedulers.io())//we told RxJava to do all the work on the background(io) thread
                 .observeOn(AndroidSchedulers.mainThread());//When the work is done and our data is ready, observeOn() ensures that onNext() or onSuccess() or onError() or accept() are called on the main thread.
         myObservable.subscribe(new Observer<List<DeviceListResponse>>() {
             @Override
             public void onSubscribe(Disposable d) {
-//                Log.e("onSubscribe ","called for     TempSensorData");
                 compositeDisposable.add(d);
             }
 
             @Override
             public void onNext(List<DeviceListResponse> deviceListResponse) {
                 Log.e("onNext ","got data");
-                generateViewForDeviceControl(rootView, deviceListResponse);
-//                dBService.getTempSensorDataDAO().insert(tempSensorData);
-
-//                Log.e("data", tempSensorData.toString()); //Won't work for lists of data unless you run a for loop through!
-//                for(TempSensorData tsData : tempSensorData){
-//                    Log.e("data", tsData.getLocation());
-//                }
+                generateViewForDeviceControl(view, deviceListResponse);
 
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e("onError ","called for     TempSensorData");
+                Log.e("onError ","called for     AcListControl");
                 Toast.makeText(getContext(), "Request failed!", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onComplete() {
-//                Log.e("onComplete ","called for     TempSensorData");
 
             }
         });
+
     }
 
 
@@ -106,5 +97,11 @@ public class DeviceControlFragment extends Fragment {
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 }

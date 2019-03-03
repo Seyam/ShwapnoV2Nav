@@ -13,13 +13,13 @@
             android:icon="@drawable/ic_power"
             android:title="Power" />
         <item
-            android:id="@+id/nav_graph"
+            android:id="@+id/nav_aclist"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Graph" />
+            android:title="AC" />
         <item
             android:id="@+id/nav_control_panel"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Control Panel" />
+            android:title="Light" />
     </group>
 
     <item android:title="">

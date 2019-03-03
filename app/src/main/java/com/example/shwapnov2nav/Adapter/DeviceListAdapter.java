@@ -3,20 +3,17 @@ package com.example.shwapnov2nav.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shwapnov2nav.API.APIService;
 import com.example.shwapnov2nav.API.RetrofitInstance;
-import com.example.shwapnov2nav.Database.DeviceControl;
-import com.example.shwapnov2nav.Database.TempSensorData;
+import com.example.shwapnov2nav.Model.DeviceListResponse;
 import com.example.shwapnov2nav.Model.UserResponse;
 import com.example.shwapnov2nav.R;
 
@@ -29,10 +26,10 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.DeviceListViewHolder> {
-    private List<DeviceControl> dataList;
+    private List<DeviceListResponse> dataList;
     private Context context;
 
-    public DeviceListAdapter(List<DeviceControl> dataList, Context context) {
+    public DeviceListAdapter(List<DeviceListResponse> dataList, Context context) {
         this.dataList = dataList;
         this.context = context;
     }

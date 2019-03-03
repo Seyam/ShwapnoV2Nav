@@ -14,11 +14,9 @@ import android.widget.Toast;
 
 import com.example.shwapnov2nav.API.APIService;
 import com.example.shwapnov2nav.API.RetrofitInstance;
-import com.example.shwapnov2nav.Activity.MainActivity;
 import com.example.shwapnov2nav.Adapter.EmployeeAdapter;
 import com.example.shwapnov2nav.Database.DataLogger;
 import com.example.shwapnov2nav.Database.TempSensorData;
-import com.example.shwapnov2nav.Database.TempSensorDataDatabase;
 import com.example.shwapnov2nav.R;
 
 import java.util.List;
@@ -49,7 +47,7 @@ public class TemperatureFragment extends Fragment {
 
         //Create only a single instance of DB
 //        dBService = TempSensorDataDatabase.getInstance(MainActivity.this);
-        View rootView = inflater.inflate(R.layout.fragment_temperature, null);
+        View rootView = inflater.inflate(R.layout.fragment_device_list, null);
 
         makeNetworkRequestForTemp(rootView);
 
@@ -107,7 +105,7 @@ public class TemperatureFragment extends Fragment {
 
     private void generateTempDataList(View rootView, List<TempSensorData> empDataList) {
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_data_list);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_device_control);
 
 
         //create a new constructor of EmployeeAdapter class with required params
