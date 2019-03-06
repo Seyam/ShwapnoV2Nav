@@ -38,13 +38,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.activity_login_new);
 
-        final EditText name = findViewById(R.id.input_name);
-        final EditText password = findViewById(R.id.input_password);
+        final EditText name = findViewById(R.id.etUserID);
+        final EditText password = findViewById(R.id.etPassword);
 
         //get the button
-        Button signInButton = findViewById(R.id.sign_in_button);
+        Button signInButton = findViewById(R.id.btnLogin);
         //set the button click handler
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

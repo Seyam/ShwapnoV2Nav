@@ -5,33 +5,36 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class TempSensorData {
-    @Expose
-    @SerializedName("id")
-    private Integer id;
 
-    @Expose
+    @SerializedName("did")
+    private String did;
+
     @SerializedName("location")
     private String location;
-    @Expose
+
     @SerializedName("value")
     private Double tempValue;
-    @Expose
+
+    @SerializedName("level")
+    private Integer level;
+
     @SerializedName("timestamp")
     private String timestamp;
 
-    public TempSensorData(Integer id, String location, Double tempValue, String timestamp) {
-        this.id = id;
+    public TempSensorData(String did, String location, Double tempValue, Integer level, String timestamp) {
+        this.did = did;
         this.location = location;
         this.tempValue = tempValue;
+        this.level = level;
         this.timestamp = timestamp;
     }
 
-    public Integer getId() {
-        return id;
+    public String getDid() {
+        return did;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDid(String did) {
+        this.did = did;
     }
 
     public String getLocation() {
@@ -48,6 +51,14 @@ public class TempSensorData {
 
     public void setTempValue(Double tempValue) {
         this.tempValue = tempValue;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public String getTimestamp() {
